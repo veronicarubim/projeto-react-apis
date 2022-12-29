@@ -8,7 +8,7 @@ const PokemonCard = () => {
 
   return (
     <div>
-<button onClick={() => {goToDetail(navigate)}}>Detalhes do Pokemon </button>
+    <button onClick={() => {goToDetail(navigate)}}>Detalhes do Pokemon </button>
     </div>
   )
 }
