@@ -29,3 +29,7 @@ height: 1174px;
 
 background: #5E5E5E;
 `
+export const DivPoke = styled.div`
+display: flex;
+flex-wrap: wrap;
+`

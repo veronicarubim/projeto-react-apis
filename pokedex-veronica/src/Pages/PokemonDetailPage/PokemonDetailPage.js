@@ -1,14 +1,17 @@
 import React from 'react'
 import Header from '../../components/Header/Header'
-import PokemonCard from '../../components/PokemonCard/PokemonCard'
+import { Container, DetailPage, Title, Imagem } from './PokemonDetailStyle'
+import imagem from '../../assets/pokemonlogo.png'
 
 const PokemonDetailPage = () => {
   return (
-    <div>
-        <h1> Pokemon Detail Page</h1>
-        <Header/>
-        <PokemonCard/>
-    </div>
+    <Container>        
+      <Header/>
+      <DetailPage>
+      <Title>Detalhes</Title>
+      <Imagem src={imagem}></Imagem>
+      </DetailPage>
+    </Container>
   )
 }
 
