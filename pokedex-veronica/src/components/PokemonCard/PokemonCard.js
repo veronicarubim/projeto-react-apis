@@ -1,16 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { goToDetail } from '../../routes/coordinator'
-import {
-  Container,
-  PokemonNumber,
-  PokemonName,
-  PokemonType,
-  TypesContainer,
-  Pokeball,
-  CatchButton,
-  DetailButton
-} from './PokemonCardStyle';
+import { Container, PokemonNumber, PokemonName, PokemonType, TypesContainer, Pokeball, CatchButton, DetailButton } from './PokemonCardStyle';
 import { useEffect , useState } from 'react';
 import axios from 'axios';
 import { getTypes } from '../../utils/ReturnType';
@@ -21,6 +12,7 @@ const PokemonCard = (props) => {
 
   const navigate = useNavigate()
   const [pokemonDetail, setPokemonDetail] = useState([])
+  const [pokedex, setPokedex] = useState([]);
 
   useEffect(() => {
     getFeatures();
@@ -32,7 +24,22 @@ const PokemonCard = (props) => {
     .catch((error) => {console.log(error)})
   };
 
-  console.log(pokemonDetail)
+  /* function addPokedex (catchPokemon) {
+    let copiaPokedex = [...pokedex]
+    let findPokemon = pokemon.find((item) => {
+    return item.name === catchPokemon.name
+})  
+    let findPokemonPokedex = pokedex.find((pokemonPokedex) => {
+        return pokemonPokedex.name === findPokemon.name
+    }) 
+     if (findPokemonPokedex) { 
+            copiaPokedex.push(findPokemon)
+            setPokedex(copiaPokedex)
+     } 
+} */
+
+console.log(pokedex)
+
 
   return (
     <div>
@@ -47,7 +54,7 @@ const PokemonCard = (props) => {
         <DetailButton onClick={() => {goToDetail(navigate)}}>Detalhes do Pokémon </DetailButton>
       </div>
       <div>
-        <CatchButton>Capturar!</CatchButton>
+        <CatchButton /* onClick={addPokedex(props.pokemon)} */>Capturar!</CatchButton>
         <Pokeball src={pokeball} alt="pokeball" />
       </div>
       <div>

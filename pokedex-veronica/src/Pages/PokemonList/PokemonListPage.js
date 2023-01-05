@@ -29,7 +29,7 @@ const PokemonListPage = () => {
       <Title>Todos Pokémons</Title>
       <DivPoke>
       {pokemons.map((pokemon) => {
-        return (<PokemonCard key={pokemon.url} pokemon={pokemon} />)
+        return (<PokemonCard key={pokemon.url} pokemon={pokemon} /* naPokedex={addPokedex(pokemon) *//>)
       })}
       </DivPoke>
       </HomePage>
