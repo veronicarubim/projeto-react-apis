@@ -1,18 +1,32 @@
 import React, { useContext } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { goToDetail } from '../../routes/coordinator'
-import { Container, PokemonNumber, PokemonName, PokemonType, TypesContainer, Pokeball, CatchButton, DetailButton } from './PokemonCardStyle';
+import {
+  Container,
+  PokemonNumber,
+  PokemonName,
+  PokemonType,
+  TypesContainer,
+  Pokeball,
+  CatchButton,
+  Pokemon,
+  DetailButton,
+  DeleteButton
+} from './PokemonCardStyle';
 import { useEffect , useState } from 'react';
 import axios from 'axios';
 import { getTypes } from '../../utils/ReturnType';
 import pokeball from '../../assets/pokeball.png'
 import { getColors } from '../../utils/ReturnCardColor';
+import { GlobalContext } from '../../context/GlobalContext';
 
 const PokemonCard = (props) => {
+  const context = useContext(GlobalContext);
+  const { addToPokedex, removeFromPokedex } = context
 
   const navigate = useNavigate()
-  const [pokemonDetail, setPokemonDetail] = useState([])
-  const [pokedex, setPokedex] = useState([]);
+  const location = useLocation()
+  const [pokemonDetail, setPokemonDetail] = useState({})
 
   useEffect(() => {
     getFeatures();
@@ -24,37 +38,24 @@ const PokemonCard = (props) => {
     .catch((error) => {console.log(error)})
   };
 
-  /* function addPokedex (catchPokemon) {
-    let copiaPokedex = [...pokedex]
-    let findPokemon = pokemon.find((item) => {
-    return item.name === catchPokemon.name
-})  
-    let findPokemonPokedex = pokedex.find((pokemonPokedex) => {
-        return pokemonPokedex.name === findPokemon.name
-    }) 
-     if (findPokemonPokedex) { 
-            copiaPokedex.push(findPokemon)
-            setPokedex(copiaPokedex)
-     } 
-} */
-
-console.log(pokedex)
-
-
+console.log(pokemonDetail)
   return (
     <div>
-        <Container cardColor={getColors(pokemonDetail.types)}>
+        <Container color={getColors(pokemonDetail.types && pokemonDetail.types[0].type.name)}>
       <div>
-        <PokemonNumber>{pokemonDetail.id}</PokemonNumber>
+        <Pokemon src={pokemonDetail.sprites?.front_default} alt={pokemonDetail.name} />
+        <PokemonNumber>0{pokemonDetail.id}</PokemonNumber>
         {pokemonDetail.types?.map((types)=> { 
           return <PokemonType key={types.type.name} src={getTypes(types.type.name)} alt=""/>
           })}
-        <PokemonName>{props.pokemon.name}</PokemonName>
+        <PokemonName>{pokemonDetail.name}</PokemonName>
         <TypesContainer></TypesContainer>
         <DetailButton onClick={() => {goToDetail(navigate)}}>Detalhes do Pokémon </DetailButton>
       </div>
       <div>
-        <CatchButton /* onClick={addPokedex(props.pokemon)} */>Capturar!</CatchButton>
+      {location.pathname === "/" ? ( <CatchButton onClick={() => addToPokedex(pokemonDetail)}>Capturar!</CatchButton>
+      ) : (<DeleteButton onClick={() => removeFromPokedex(pokemonDetail)}>Remover da Pokedex </DeleteButton>
+      )}
         <Pokeball src={pokeball} alt="pokeball" />
       </div>
       <div>

@@ -1,25 +1,21 @@
-import React from 'react'
-import axios from 'axios'
+import React, { useContext } from 'react'
 import Header from '../../components/Header/Header'
 import PokemonCard from '../../components/PokemonCard/PokemonCard'
 import { Container, DivPoke, HomePage, Title } from './PokemonListStyle'
-import { useState, useEffect } from 'react'
+import { GlobalContext } from '../../context/GlobalContext'
 
-const PokemonListPage = () => {
+const PokemonListPage = (props) => {
 
-  const [pokemons, setPokemons] = useState([]);
+  const context = useContext(GlobalContext);
+  const { pokemons, addToPokedex, pokedex } = context;
 
-  useEffect(() => {
-    getPokemons();
-  }, []);
-
-  const getPokemons = () => {
-    axios.get(`https://pokeapi.co/api/v2/pokemon/`)
-    .then((response) => {setPokemons(response.data.results)})
-    .catch((error) => {console.log(error)})
-  };
-
-  console.log(pokemons)
+  const filteredPokelist = () =>
+    pokemons.filter(
+      (pokemonInList) =>
+        !pokedex.find(
+          (pokemonInPokedex) => pokemonInList.name === pokemonInPokedex.name
+        )
+    );
 
   return (
  
@@ -28,8 +24,8 @@ const PokemonListPage = () => {
       <HomePage>
       <Title>Todos Pokémons</Title>
       <DivPoke>
-      {pokemons.map((pokemon) => {
-        return (<PokemonCard key={pokemon.url} pokemon={pokemon} /* naPokedex={addPokedex(pokemon) *//>)
+      {filteredPokelist().map((pokemon) => {
+        return (<PokemonCard key={pokemon.url} pokemon={pokemon} addToPokedex={addToPokedex} />)
       })}
       </DivPoke>
       </HomePage>

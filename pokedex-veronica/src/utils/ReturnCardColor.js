@@ -1,6 +1,6 @@
-export const getColors = (types) => {
-    switch (types) {
-      case "bug":
+export const getColors = (type) => {
+    switch (type) {
+      case 'bug':
         return "#316520";
       case "dark":
         return "#5C5365";

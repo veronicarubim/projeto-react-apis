@@ -4,7 +4,7 @@ export const Container = styled.div`
   padding: 16px;
   min-width: 400px;
   max-width: 440px;
-  background-color: ${(props) => props.cardColor};
+  background-color: ${(props) => props.color};
   border-radius: 12px;
   display: flex;
   position: relative;
@@ -67,6 +67,25 @@ export const CatchButton = styled.button`
   right: 22px;
   z-index: 2;
   color: #000;
+`;
+
+export const DeleteButton = styled.button`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 10px;
+  width: 146px;
+  height: 38px;
+  background: #DB261A;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  bottom: 10px;
+  right: 22px;
+  z-index: 2;
+  color: #ffffff;
 `;
 
 export const DetailButton = styled.button`
