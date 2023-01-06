@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   padding: 16px;
-  min-width: 400px;
-  max-width: 440px;
+  width: 440px;
+  height: 210px;
   background-color: ${(props) => props.color};
   border-radius: 12px;
   display: flex;
@@ -85,12 +85,23 @@ export const DeleteButton = styled.button`
   bottom: 10px;
   right: 22px;
   z-index: 2;
-  color: #ffffff;
+  background: #FF6262;
+  color: #FFFFFF;
 `;
 
 export const DetailButton = styled.button`
-border: none;
-background: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 74px;
+  height: 24px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  text-decoration-line: underline;
+  color: #ffffff;
+
 `
 
 export const Pokemon = styled.img`

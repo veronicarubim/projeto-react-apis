@@ -9,6 +9,7 @@ function App() {
 
   const [pokemons, setPokemons] = useState([]);
   const [pokedex, setPokedex] = useState([]);
+  const [detalhesPokemon, setDetalhesPokemon] = useState([])
 
   useEffect(() => {
     getPokemons();
@@ -42,7 +43,9 @@ function App() {
     pokemons,
     addToPokedex,
     pokedex,
-    removeFromPokedex
+    removeFromPokedex,
+    detalhesPokemon,
+    setDetalhesPokemon
   }
 
   return (

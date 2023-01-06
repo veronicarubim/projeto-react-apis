@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const HeaderStyle = styled.div`
 display: flex;
 align-items: center;
-justify-content: space-between;
+justify-content: center;
 height: 160px;
 left: 0px;
 top: 0px;
@@ -12,8 +12,10 @@ background: #FFFFFF;
 
 export const ImgStyle = styled.img `
 
+position: absolute;
 width: 307px;
 height: 113px;
+left: 566px; 
 top: 21px;
 `
 
@@ -25,10 +27,11 @@ justify-content: center;
 align-items: center;
 padding: 4px 10px;
 
+position: absolute;
 width: 287px;
 height: 74px;
+left: 1112px;
 top: 41px;
-margin-right: 20px;
 
 background: #33A4F5;
 border-radius: 8px;
@@ -48,11 +51,11 @@ order: 0;
 flex-grow: 0;
 `
 export const ButtonStyle2 = styled.button`
-
+position: absolute;
 width: 210px;
 height: 36px;
+left: 100px;
 top: 62px;
-margin-left: 20px;
 
 font-family: 'Poppins';
 font-style: normal;
