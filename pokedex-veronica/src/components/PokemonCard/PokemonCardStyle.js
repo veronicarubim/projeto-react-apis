@@ -1,25 +1,38 @@
 import styled from "styled-components";
 
+export const PokemonCardBox = styled.div`
+
+  width: 440px;
+  height: 280px;
+  left: 0px;
+  top: 0px;
+  display: flex;
+`
+
 export const Container = styled.div`
-  padding: 16px;
-  min-width: 400px;
-  max-width: 440px;
+
+  width: 440px;
+  height: 210px;
   background-color: ${(props) => props.color};
   border-radius: 12px;
   display: flex;
   position: relative;
-  margin: 50px;
+  margin: 10px;
   color: #ffffff;
+  padding: 10px;
 `;
 
 export const PokemonNumber = styled.p`
+  
   font-family: "Inter", sans-serif;
+  font-weight: 700;
   font-size: 16px;
-  font-weight: 600;
+  line-height: 19px;
   text-align: left;
 `;
 
 export const PokemonName = styled.h1`
+  
   font-size: 32px;
   font-weight: 700;
   letter-spacing: 0em;
@@ -28,6 +41,7 @@ export const PokemonName = styled.h1`
 `;
 
 export const PokemonType = styled.img`
+  
   max-width: 100px;
   height: 32px;
   border-radius: 8px;
@@ -37,6 +51,7 @@ export const PokemonType = styled.img`
 `;
 
 export const TypesContainer = styled.div`
+  
   position: absolute;
   width: 440px;
   height: 210px;
@@ -45,12 +60,14 @@ export const TypesContainer = styled.div`
   border-radius: 12px;
 `;
 export const Pokeball = styled.img`
+  
   position: absolute;
   top: 0;
   right: 0;
 `;
 
 export const CatchButton = styled.button`
+  
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -70,6 +87,7 @@ export const CatchButton = styled.button`
 `;
 
 export const DeleteButton = styled.button`
+  
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -85,12 +103,25 @@ export const DeleteButton = styled.button`
   bottom: 10px;
   right: 22px;
   z-index: 2;
-  color: #ffffff;
+  background: #FF6262;
+  color: #FFFFFF;
 `;
 
 export const DetailButton = styled.button`
-border: none;
-background: none;
+  
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 74px;
+  height: 24px;
+  margin-top: 40px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  text-decoration-line: underline;
+  color: #ffffff;
+
 `
 
 export const Pokemon = styled.img`

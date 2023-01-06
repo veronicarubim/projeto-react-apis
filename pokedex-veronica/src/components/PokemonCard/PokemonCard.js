@@ -11,7 +11,8 @@ import {
   CatchButton,
   Pokemon,
   DetailButton,
-  DeleteButton
+  DeleteButton,
+  PokemonCardBox
 } from './PokemonCardStyle';
 import { useEffect , useState } from 'react';
 import axios from 'axios';
@@ -38,30 +39,27 @@ const PokemonCard = (props) => {
     .catch((error) => {console.log(error)})
   };
 
-console.log(pokemonDetail)
   return (
-    <div>
+    <PokemonCardBox>
         <Container color={getColors(pokemonDetail.types && pokemonDetail.types[0].type.name)}>
       <div>
-        <Pokemon src={pokemonDetail.sprites?.front_default} alt={pokemonDetail.name} />
-        <PokemonNumber>0{pokemonDetail.id}</PokemonNumber>
+        <Pokemon src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonDetail.id}.png`} alt={pokemonDetail.name} />
+        <PokemonNumber>#0{pokemonDetail.id}</PokemonNumber>
         {pokemonDetail.types?.map((types)=> { 
           return <PokemonType key={types.type.name} src={getTypes(types.type.name)} alt=""/>
           })}
         <PokemonName>{pokemonDetail.name}</PokemonName>
-        <TypesContainer></TypesContainer>
-        <DetailButton onClick={() => {goToDetail(navigate)}}>Detalhes do Pokémon </DetailButton>
+        <DetailButton onClick={() => {goToDetail(navigate, pokemonDetail.id);
+        }}>Detalhes</DetailButton>
       </div>
       <div>
       {location.pathname === "/" ? ( <CatchButton onClick={() => addToPokedex(pokemonDetail)}>Capturar!</CatchButton>
-      ) : (<DeleteButton onClick={() => removeFromPokedex(pokemonDetail)}>Remover da Pokedex </DeleteButton>
+      ) : (<DeleteButton onClick={() => removeFromPokedex(pokemonDetail)}>Excluir</DeleteButton>
       )}
         <Pokeball src={pokeball} alt="pokeball" />
       </div>
-      <div>
-    </div>
     </Container>
-    </div>
+    </PokemonCardBox>
   );
 };
 
