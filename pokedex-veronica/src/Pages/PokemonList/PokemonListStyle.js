@@ -23,9 +23,12 @@ flex-direction: column;
 `
 
 export const HomePage = styled.div`
-
-width: 1440px;
-height: 1174px;
-
+min-height: 1174px;
 background: #5E5E5E;
+`
+export const DivPoke = styled.div`
+padding: 0;
+margin-top: 190px;
+display: flex;
+flex-wrap: wrap;
 `
