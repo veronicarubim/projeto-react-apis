@@ -2,12 +2,12 @@ import React, { useContext, useEffect } from 'react'
 import Header from '../../components/Header/Header'
 import { Container, 
   DetailPage, 
-  Title, 
-  Imagem, 
-  Container2, 
+  Title,
   Sprite, 
+  PokemonNumber,
+  ContainerPokemon,
   BoxBaseStats, 
-  TitleBaseStatsMoves, 
+  BaseStats, 
   ContainerStats, 
   HrStats, 
   DivStat, 
@@ -16,21 +16,25 @@ import { Container,
   DivBar, 
   BarStats, 
   TextTotalStats, 
-  NumberTotalStats,
-  SecondDiv,
-  PokemonID, 
-  DivMoveTypes, 
-  BoxMoves,
-  TextMoveType,
-  Card
+  NumberTotalStats, 
+  DivMoveTypes,
+  PokemonImagem,
+  DivPokeInfo,
+  ContainerMoves,
+  ContainerSprites,
+  Background,
+  TypesContainer,
+  PokemonName,
+  PokemonType,
+  MoveName,
+  Imagem
 } from './PokemonDetailStyle' 
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import {getColors} from '../../utils/ReturnCardColor'
-import { PokemonName, PokemonType, TypesContainer } from '../../components/PokemonCard/PokemonCardStyle'
 import { getTypes } from '../../utils/ReturnType'
-import { ImgCard } from './PokemonDetailStyle'
 import { GlobalContext } from '../../context/GlobalContext'
+import logo from '../../assets/pokeballdt.png'
 
 const PokemonDetailPage = () => {
 
@@ -59,117 +63,96 @@ const PokemonDetailPage = () => {
     );
   };
 
-  const barColor = (statNumber) => {
-    if (statNumber <= 50) {
-      return "#ff7c2d";
+  const powerBar = (index) => {
+    if (index <= 50) {
+      return "#ff7c2d"
     } else {
-      return "#ffdd6a";
+      return "#ffdd6a"
     }
   };
 
   return (
+
     <Container >        
       <Header/>
       <DetailPage>
       <Title>Detalhes</Title>
-      <Card color={getColors(detalhesPokemon.types && detalhesPokemon.types[0].type.name)}>
+      <Background color={getColors(detalhesPokemon.types && detalhesPokemon.types[0].type.name)}>     
+      <ContainerSprites>
+        <Sprite src={detalhesPokemon.sprites?.front_default} alt=""/>
+        <Sprite src={detalhesPokemon.sprites?.back_default} alt=""/>
+      </ContainerSprites>
       
-      <Container2>
-            <Sprite src={detalhesPokemon.sprites?.front_default} alt=""/>
-            <Sprite src={detalhesPokemon.sprites?.back_default} alt=""/>
-      </Container2>
-
       <BoxBaseStats>
-          <TitleBaseStatsMoves>Base stats</TitleBaseStatsMoves>
+        <BaseStats>Base stats</BaseStats>
+        <ContainerStats>
+          <HrStats></HrStats>
+          {detalhesPokemon.stats?.map((stat) => {
+            return (
+            <>
+            <DivStat key={stat.stat.name}>
+            <TextStats>
+            {stat.stat.name.charAt(0).toUpperCase() + stat.stat.name.slice(1)}
+            </TextStats>
+            <NumberStats>{stat.base_stat}</NumberStats>
+              <DivBar>
+                <BarStats color={powerBar(stat.base_stat)} size={stat.base_stat}/>
+              </DivBar>
+            </DivStat>
+            <HrStats></HrStats>
+            </>
+            );
+            }
+          )};
 
-            <ContainerStats>
-              <HrStats></HrStats>
-              
-              {detalhesPokemon.stats?.map((stat) => {
-                return (
-                  <>
-                    <DivStat key={stat.stat.name}>
-                      <TextStats>
-                        {stat.stat.name.charAt(0).toUpperCase() +
-                          stat.stat.name.slice(1)}
-                      </TextStats>
-                      <NumberStats>{stat.base_stat}</NumberStats>
-                      <DivBar>
-                        <BarStats
-                          color={barColor(stat.base_stat)}
-                          size={stat.base_stat}
-                        ></BarStats>
-                      </DivBar>
-                    </DivStat>
-
-                    <HrStats></HrStats>
-                  </>
-                );
-              })}
-              <DivStat>
-                <TextTotalStats>Total</TextTotalStats>
-                {/* using logical operator to wait for .stats to exist before using it */}
-                <NumberTotalStats>
-                  {detalhesPokemon.stats && totalStats(detalhesPokemon.stats)}
-                </NumberTotalStats>
-                <DivBar>
-                  {/* use this invisible bar to continue with the right formatting */}
-                  <BarStats color={"none"} size={100}></BarStats>
-                </DivBar>
+            <DivStat>
+            <TextTotalStats>Total</TextTotalStats>
+            <NumberTotalStats>
+            {detalhesPokemon.stats && totalStats(detalhesPokemon.stats)}
+            </NumberTotalStats>
+              <DivBar>
+              <BarStats></BarStats>
+              </DivBar>
               </DivStat>
               <HrStats></HrStats>
-            </ContainerStats>
-          </BoxBaseStats>
+        </ContainerStats>
+      </BoxBaseStats>
 
-          <SecondDiv>
-            <PokemonID>#0{detalhesPokemon.id}</PokemonID>
-            <PokemonName>
-              {detalhesPokemon.name?.charAt(0).toUpperCase() +
-                detalhesPokemon.name?.slice(1)}
-            </PokemonName>
+          <ContainerPokemon>
+            <DivPokeInfo>
+            <Imagem src={logo} alt=""/>
+            <PokemonNumber>#0{detalhesPokemon.id}</PokemonNumber>
+            <PokemonName>{detalhesPokemon.name}</PokemonName>
             <TypesContainer>
-              {detalhesPokemon.types?.map((types) => {
+                {detalhesPokemon.types?.map((types) => {
                 return (
-                  <PokemonType
-                    key={types.type.name}
-                    src={getTypes(types.type.name)}
-                  />
-                );
-              })}
+            <PokemonType key={types.type.name} src={getTypes(types.type.name)} alt=""/>);
+              })};
             </TypesContainer>
+            </DivPokeInfo>   
 
-            <BoxMoves>
-              <TitleBaseStatsMoves>Moves:</TitleBaseStatsMoves>
-
-              {/* select the right quantity of moves to show on page */}
+            <ContainerMoves>
+              <BaseStats>Moves:</BaseStats>
               <DivMoveTypes>
-                <TextMoveType>
-                  {detalhesPokemon.moves &&
-                    detalhesPokemon.moves[0].move.name.charAt(0).toUpperCase() +
-                      detalhesPokemon.moves[0].move.name?.slice(1)}
-                </TextMoveType>
-                <TextMoveType>
-                  {detalhesPokemon.moves &&
-                    detalhesPokemon.moves[1].move.name.charAt(0).toUpperCase() +
-                      detalhesPokemon.moves[1].move.name?.slice(1)}
-                </TextMoveType>
-                <TextMoveType>
-                  {detalhesPokemon.moves &&
-                    detalhesPokemon.moves[2].move.name.charAt(0).toUpperCase() +
-                      detalhesPokemon.moves[2].move.name?.slice(1)}
-                </TextMoveType>
-                <TextMoveType>
-                  {detalhesPokemon.moves &&
-                    detalhesPokemon.moves[3].move.name.charAt(0).toUpperCase() +
-                      detalhesPokemon.moves[3].move.name?.slice(1)}
-                </TextMoveType>
+                <MoveName>
+                  {detalhesPokemon.moves && detalhesPokemon.moves[0].move.name.charAt(0).toUpperCase() + detalhesPokemon.moves[0].move.name?.slice(1)}
+                </MoveName>
+                <MoveName>
+                  {detalhesPokemon.moves && detalhesPokemon.moves[1].move.name.charAt(0).toUpperCase() + detalhesPokemon.moves[1].move.name?.slice(1)}
+                </MoveName>
+                <MoveName>
+                  {detalhesPokemon.moves && detalhesPokemon.moves[2].move.name.charAt(0).toUpperCase() + detalhesPokemon.moves[2].move.name?.slice(1)}
+                </MoveName>
+                <MoveName>
+                  {detalhesPokemon.moves && detalhesPokemon.moves[3].move.name.charAt(0).toUpperCase() + detalhesPokemon.moves[3].move.name?.slice(1)}
+                </MoveName>
               </DivMoveTypes>
-            </BoxMoves>
-          </SecondDiv>
-          <ImgCard
+            </ContainerMoves>
+          </ContainerPokemon>
+          <PokemonImagem
             src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${detalhesPokemon.id}.png`}
           />
-          </Card>
+          </Background>
       </DetailPage>
     </Container>
   )

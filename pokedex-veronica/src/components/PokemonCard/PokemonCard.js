@@ -11,7 +11,8 @@ import {
   CatchButton,
   Pokemon,
   DetailButton,
-  DeleteButton
+  DeleteButton,
+  PokemonCardBox
 } from './PokemonCardStyle';
 import { useEffect , useState } from 'react';
 import axios from 'axios';
@@ -39,11 +40,11 @@ const PokemonCard = (props) => {
   };
 
   return (
-    <div>
+    <PokemonCardBox>
         <Container color={getColors(pokemonDetail.types && pokemonDetail.types[0].type.name)}>
       <div>
         <Pokemon src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonDetail.id}.png`} alt={pokemonDetail.name} />
-        <PokemonNumber>0{pokemonDetail.id}</PokemonNumber>
+        <PokemonNumber>#0{pokemonDetail.id}</PokemonNumber>
         {pokemonDetail.types?.map((types)=> { 
           return <PokemonType key={types.type.name} src={getTypes(types.type.name)} alt=""/>
           })}
@@ -58,7 +59,7 @@ const PokemonCard = (props) => {
         <Pokeball src={pokeball} alt="pokeball" />
       </div>
     </Container>
-    </div>
+    </PokemonCardBox>
   );
 };
 
