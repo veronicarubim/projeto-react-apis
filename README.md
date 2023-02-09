@@ -1,5 +1,5 @@
 # **Projeto React e API's**
-<img src="https://pbs.twimg.com/media/FmKVi4qXoAA2eT-?format=jpg&name=4096x4096"/>
+<img src="https://pbs.twimg.com/media/FoiAZRDWAAETytI?format=jpg&name=4096x4096"/>
 
 ## Descrição
 
